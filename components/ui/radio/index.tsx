@@ -15,7 +15,7 @@ const RadioButton = ({
 }: RadioButtonProps) => {
   return (
     <div className="my-2">
-      <p>{name}:</p>
+      <p className="mb-1">{name}:</p>
       {options.map((option) => (
         <label className="mr-2" key={option.value}>
           <input
