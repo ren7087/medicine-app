@@ -43,25 +43,33 @@ const Form = React.memo(() => {
   const contentLines = result?.points?.split(/\n\t\t|\n/) || [];
 
   const focusNextQuestion = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault(); // Prevent the default form submission on Enter key.
-
-      // Focus the next radio button group
+    if (e.key === "Enter" || e.key === "ArrowUp" || e.key === "ArrowDown") {
+      e.preventDefault();
       const form = e.currentTarget.form;
-      if (!form) return; // if for some reason the form is not there, exit the function
-
+      if (!form) return;
       const elements = Array.from(form.elements) as HTMLInputElement[];
       const currentIndex = elements.indexOf(e.currentTarget);
-      let nextElement = elements[currentIndex + 1];
+      let targetIndex = currentIndex;
 
-      // Skip over other radio buttons in the same group
-      while (nextElement && nextElement.name === e.currentTarget.name) {
-        const nextIndex = elements.indexOf(nextElement) + 1;
-        nextElement = elements[nextIndex];
+      if (e.key === "Enter" || e.key === "ArrowDown") {
+        for (let i = currentIndex + 1; i < elements.length; i++) {
+          if (elements[i].name !== e.currentTarget.name) {
+            targetIndex = i;
+            break;
+          }
+        }
+      } else if (e.key === "ArrowUp") {
+        for (let i = currentIndex - 1; i >= 0; i--) {
+          if (elements[i].name !== e.currentTarget.name) {
+            targetIndex = i;
+            break;
+          }
+        }
       }
 
-      if (nextElement && nextElement instanceof HTMLInputElement) {
-        nextElement.focus();
+      const targetElement = elements[targetIndex];
+      if (targetElement && targetElement !== e.currentTarget) {
+        targetElement.focus();
       }
     }
   };
