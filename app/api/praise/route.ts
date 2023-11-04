@@ -28,6 +28,11 @@ export async function POST(req: NextRequest) {
           content: `
 					・You are an expert in medicine. 入力情報を元に、薬剤師向けの訪問・居宅療養管理指導報告書を生成してください。
 					・Please write about the patient's symptoms in great detail.
+					・Please write about the patient's side effect in great detail.
+					・Please write like as a pharmacist.
+					・Please output each item with more than 600 characters.
+					・管理者に対しての特記事項も記載してください。 ex) 今後の服薬指導のポイント。息苦しさがある場合は、呼吸器科受診を勧める。
+
 					・出力はJSON形式で書いてください。
 
 							# 出力形式
