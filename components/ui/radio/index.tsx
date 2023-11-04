@@ -5,6 +5,7 @@ type RadioButtonProps = {
   options: { value: string; label: string }[];
   selectedValue: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const RadioButton = ({
@@ -12,6 +13,7 @@ const RadioButton = ({
   options,
   selectedValue,
   onChange,
+  onKeyDown,
 }: RadioButtonProps) => {
   return (
     <div className="my-2">
@@ -24,6 +26,7 @@ const RadioButton = ({
             value={option.value}
             checked={selectedValue === option.value}
             onChange={onChange}
+            onKeyDown={onKeyDown}
           />
           {option.label}
         </label>

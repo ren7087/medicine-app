@@ -2,12 +2,9 @@
 import axios from "axios";
 import Image from "next/image";
 import React from "react";
-import Checkbox from "@/components/ui/checkbox";
-import MultiSelectDropdown from "@/components/ui/dropdown";
 import Loading from "@/components/ui/loading";
 import RadioButton from "@/components/ui/radio";
-import Textarea from "@/components/ui/textarea";
-import { MedicineJSON, SideEffect, Symptoms } from "@/types/type";
+import { SideEffect, Symptoms } from "@/types/type";
 const AIResult = React.lazy(() => import("@/components/features/aiResult"));
 
 const Form = React.memo(() => {
@@ -45,12 +42,36 @@ const Form = React.memo(() => {
   }>();
   const contentLines = result?.points?.split(/\n\t\t|\n/) || [];
 
+  const focusNextQuestion = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent the default form submission on Enter key.
+
+      // Focus the next radio button group
+      const form = e.currentTarget.form;
+      if (!form) return; // if for some reason the form is not there, exit the function
+
+      const elements = Array.from(form.elements) as HTMLInputElement[];
+      const currentIndex = elements.indexOf(e.currentTarget);
+      let nextElement = elements[currentIndex + 1];
+
+      // Skip over other radio buttons in the same group
+      while (nextElement && nextElement.name === e.currentTarget.name) {
+        const nextIndex = elements.indexOf(nextElement) + 1;
+        nextElement = elements[nextIndex];
+      }
+
+      if (nextElement && nextElement instanceof HTMLInputElement) {
+        nextElement.focus();
+      }
+    }
+  };
+
   const handleInputChange = React.useCallback(
     (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      questionType: string
+      questionType: string,
     ) => {
-      const { name, value, type } = e.target as HTMLInputElement;
+      const { name, value } = e.target as HTMLInputElement;
       if (questionType === "symptoms") {
         setSymptoms((prev) => ({
           ...prev,
@@ -63,7 +84,7 @@ const Form = React.memo(() => {
         }));
       }
     },
-    []
+    [],
   );
 
   const callAI = async () => {
@@ -113,66 +134,77 @@ const Form = React.memo(() => {
                   options={symptomsOptions}
                   selectedValue={symptoms["血圧"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="血糖値"
                   options={symptomsOptions}
                   selectedValue={symptoms["血糖値"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="骨密度"
                   options={symptomsOptions}
                   selectedValue={symptoms["骨密度"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="眼圧"
                   options={symptomsOptions}
                   selectedValue={symptoms["眼圧"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="乾燥肌"
                   options={symptomsOptions}
                   selectedValue={symptoms["乾燥肌"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="ふらつき"
                   options={symptomsOptions}
                   selectedValue={symptoms["ふらつき"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="眠気"
                   options={symptomsOptions}
                   selectedValue={symptoms["眠気"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="動悸"
                   options={symptomsOptions}
                   selectedValue={symptoms["動悸"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="食欲"
                   options={symptomsOptions}
                   selectedValue={symptoms["食欲"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="倦怠感"
                   options={symptomsOptions}
                   selectedValue={symptoms["倦怠感"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="自覚症状"
                   options={symptomsOptions}
                   selectedValue={symptoms["自覚症状"]}
                   onChange={(e) => handleInputChange(e, "symptoms")}
+                  onKeyDown={focusNextQuestion}
                 />
               </div>
             </div>
@@ -187,66 +219,77 @@ const Form = React.memo(() => {
                   options={sideEffectOptions}
                   selectedValue={sideEffect["吐き気"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="吐く"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["吐く"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="めまい"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["めまい"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="立ちくらみ"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["立ちくらみ"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="脈が遅い"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["脈が遅い"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="うとうとする"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["うとうとする"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="脱力感"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["脱力感"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="筋力低下"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["筋力低下"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="顔が赤くなる"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["顔が赤くなる"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="息苦しい"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["息苦しい"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
                 <RadioButton
                   name="口が乾く"
                   options={sideEffectOptions}
                   selectedValue={sideEffect["口が乾く"]}
                   onChange={(e) => handleInputChange(e, "sideEffect")}
+                  onKeyDown={focusNextQuestion}
                 />
               </div>
             </div>
