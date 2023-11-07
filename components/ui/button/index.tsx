@@ -1,16 +1,5 @@
 "use client";
-import React from "react";
-
-type ClickButtonProps = {
-  type: "primary" | "secondary";
-  onClick: () => void;
-  children: React.ReactNode;
-};
-
-type SubmitButtonProps = {
-  type: "primary" | "secondary";
-  children: React.ReactNode;
-};
+import { ClickButtonProps, SubmitButtonProps } from "@/types/propsType";
 
 export const ClickButton = ({ type, onClick, children }: ClickButtonProps) => {
   return (

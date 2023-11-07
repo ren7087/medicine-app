@@ -1,12 +1,5 @@
 "use client";
-
-type RadioButtonProps = {
-  name: string;
-  options: { value: string; label: string }[];
-  selectedValue: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-};
+import { RadioButtonProps } from "@/types/propsType";
 
 const RadioButton = ({
   name,

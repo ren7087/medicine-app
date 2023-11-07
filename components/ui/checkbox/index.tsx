@@ -1,13 +1,6 @@
-import React from "react";
+import { CheckboxProps } from "@/types/propsType";
 
-type Props = {
-  title: string;
-  handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-};
-
-const Checkbox = ({ title, handleInputChange }: Props) => {
+const Checkbox = ({ title, handleInputChange }: CheckboxProps) => {
   return (
     <div className="my-2">
       <label>

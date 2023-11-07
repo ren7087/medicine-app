@@ -1,15 +1,11 @@
-import React from "react";
+import { TextAreaProps } from "@/types/propsType";
 
-type Props = {
-  title: string;
-  placeholder?: string;
-  value: string;
-  handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-};
-
-const Textarea = ({ title, placeholder, value, handleInputChange }: Props) => {
+const Textarea = ({
+  title,
+  placeholder,
+  value,
+  handleInputChange,
+}: TextAreaProps) => {
   return (
     <div className="my-2">
       <label>

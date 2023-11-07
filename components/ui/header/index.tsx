@@ -1,5 +1,3 @@
-import React from "react";
-
 const Header = () => {
   return (
     <nav className="flex justify-between h-20 py-4 pr-10 bg-white shadow-md shadow-gray-500 border-b border-gray-200 relative">

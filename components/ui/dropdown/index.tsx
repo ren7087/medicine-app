@@ -1,5 +1,4 @@
 "use client";
-
 import { MedicineJSON } from "@/types/type";
 
 type Props = {
