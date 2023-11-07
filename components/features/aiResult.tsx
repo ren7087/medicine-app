@@ -2,14 +2,11 @@ import Image from "next/image";
 import React from "react";
 
 type Props = {
-  result?: {
-    notices?: string | undefined;
-    points?: string | undefined;
-  };
-  contentLines: string[];
+  resultNotices: string[];
+  resultPoints: string[];
 };
 
-const AIResult = ({ result, contentLines }: Props) => {
+const AIResult = ({ resultNotices, resultPoints }: Props) => {
   return (
     <div className="bg-white shadow-lg rounded-md md:p-10 p-5 mt-3">
       <p className="font-bold text-lg flex gap-1">
@@ -20,7 +17,12 @@ const AIResult = ({ result, contentLines }: Props) => {
       <div className="p-3">
         <p className="font-bold">管理者に対しての特記事項</p>
         <p className="p-3 bg-slate-300 rounded-lg text-black">
-          {result?.notices}
+          {resultNotices.map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index !== resultNotices.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </p>
       </div>
 
@@ -29,10 +31,10 @@ const AIResult = ({ result, contentLines }: Props) => {
           処方医及び医療関係者に対して提供した訪問結果に関する情報の要点
         </p>
         <p className="p-3 bg-slate-300 rounded-lg text-black">
-          {contentLines.map((line, index) => (
+          {resultPoints.map((line, index) => (
             <React.Fragment key={index}>
               {line}
-              {index !== contentLines.length - 1 && <br />}
+              {index !== resultPoints.length - 1 && <br />}
             </React.Fragment>
           ))}
         </p>

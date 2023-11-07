@@ -40,7 +40,8 @@ const Form = React.memo(() => {
     notices?: string;
     points?: string;
   }>();
-  const contentLines = result?.points?.split(/\n\t\t|\n/) || [];
+  const resultNotices = result?.notices?.split(/\n\t\t|\n/) || [];
+  const resultPoints = result?.points?.split(/\n\t\t|\n/) || [];
 
   const focusNextQuestion = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" || e.key === "ArrowUp" || e.key === "ArrowDown") {
@@ -318,7 +319,7 @@ const Form = React.memo(() => {
           </div>
         </div>
       </form>
-      <AIResult result={result} contentLines={contentLines} />
+      <AIResult resultNotices={resultNotices} resultPoints={resultPoints} />
     </div>
   );
 });
